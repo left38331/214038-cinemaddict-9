@@ -1,7 +1,7 @@
 # Личный проект «Киноман» [![Build status][travis-image]][travis-url]
 
 * Студент: [Егор Перхальский](https://up.htmlacademy.ru/ecmascript/9/user/214038).
-* Наставник: `Неизвестно`.
+* Наставник: `Сергей Шершнев`.
 
 ---
 
