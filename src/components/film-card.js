@@ -7,7 +7,7 @@ export const createCardFilmLayout = ({name, posters, text, rating, premiere, dur
         <span class="film-card__duration">${Math.floor(duration / 60) >= 1 ? Math.floor(duration / 60) : ``}h ${duration < 60 ? duration : duration % 60}m</span>
         <span class="film-card__genre">${genre}</span>
       </p>
-      <img src="${posters}" alt="" class="film-card__poster">
+      <img src="./images/posters/${posters}" alt="" class="film-card__poster">
       <p class="film-card__description">${text}</p>
       <a class="film-card__comments">${countComments} comments</a>
       <form class="film-card__controls">

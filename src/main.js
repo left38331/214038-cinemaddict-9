@@ -12,7 +12,6 @@ import {createFilmDetails} from "./components/film-detais";
 import {createFooterStatisticLayout} from "./components/footer-statistic";
 import {configAllCard} from "./data";
 import {configFilters} from "./data";
-import {configPopup} from "./data";
 
 const fullConfigCards = configAllCard.slice();
 const firstPartCards = configAllCard.splice(0, 5);
@@ -60,7 +59,7 @@ const defineRank = () => {
 const renderPopupDetails = () => {
   const footer = document.querySelector(`footer`);
 
-  renderComponent(footer, createFilmDetails(configPopup), `afterend`);
+  renderComponent(footer, createFilmDetails(fullConfigCards[0]), `afterend`);
 };
 
 const defineMostValues = (config, type) => {
@@ -92,9 +91,9 @@ const defineMostValues = (config, type) => {
 const renderMostValuesCards = (value, itemSelector) => {
   const filmsExtraBlocks = document.querySelectorAll(`.films-list--extra .films-list__container`);
   const arrayMost = defineMostValues(fullConfigCards, value);
-  const a = fullConfigCards.slice(arrayMost[0], arrayMost[0] + 1).concat(fullConfigCards.slice(arrayMost[1], arrayMost[1] + 1));
+  const mostValueItems = fullConfigCards.slice(arrayMost[0], arrayMost[0] + 1).concat(fullConfigCards.slice(arrayMost[1], arrayMost[1] + 1));
 
-  renderComponent(filmsExtraBlocks[itemSelector], a.map(createCardFilmLayout).join(``));
+  renderComponent(filmsExtraBlocks[itemSelector], mostValueItems.map(createCardFilmLayout).join(``));
 };
 
 const renderFilmsComponents = () => {

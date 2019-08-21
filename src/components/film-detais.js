@@ -1,4 +1,4 @@
-export const createFilmDetails = ({name, posters, text, rating, premiere, runtime, original, genre, watchlist, watched, favorite, countComments, directors, writers, actors, country}) => `
+export const createFilmDetails = ({name, posters, text, rating, premiere, duration, genre, watchlist, watched, favorite, countComments, director, writers, actors, country}) => `
   <section class="film-details">
  
     <form class="film-details__inner" action="" method="get">
@@ -8,7 +8,7 @@ export const createFilmDetails = ({name, posters, text, rating, premiere, runtim
         </div>
         <div class="film-details__info-wrap">
           <div class="film-details__poster">
-            <img class="film-details__poster-img" src="${posters}" alt="">
+            <img class="film-details__poster-img" src="./images/posters/${posters}" alt="">
   
             <p class="film-details__age">18+</p>
           </div>
@@ -17,7 +17,7 @@ export const createFilmDetails = ({name, posters, text, rating, premiere, runtim
             <div class="film-details__info-head">
               <div class="film-details__title-wrap">
                 <h3 class="film-details__title">${name}</h3>
-                <p class="film-details__title-original">Original: ${original}</p>
+                <p class="film-details__title-original">Original: ${name}</p>
               </div>
   
               <div class="film-details__rating">
@@ -28,7 +28,7 @@ export const createFilmDetails = ({name, posters, text, rating, premiere, runtim
             <table class="film-details__table">
               <tr class="film-details__row">
                 <td class="film-details__term">Director</td>
-                <td class="film-details__cell">${directors}</td>
+                <td class="film-details__cell">${director}</td>
               </tr>
               <tr class="film-details__row">
                 <td class="film-details__term">Writers</td>
@@ -40,11 +40,11 @@ export const createFilmDetails = ({name, posters, text, rating, premiere, runtim
               </tr>
               <tr class="film-details__row">
                 <td class="film-details__term">Release Date</td>
-                <td class="film-details__cell">${premiere}</td>
+                <td class="film-details__cell">${premiere.getDay() + ` ` + premiere.toLocaleString(`en`, {month: `long`}) + ` ` + premiere.getFullYear()}</td>
               </tr>
               <tr class="film-details__row">
                 <td class="film-details__term">Runtime</td>
-                <td class="film-details__cell">${Math.floor(runtime / 60) >= 1 ? Math.floor(runtime / 60) : ``}h ${runtime < 60 ? runtime : runtime % 60}m</td>
+                <td class="film-details__cell">${Math.floor(duration / 60) >= 1 ? Math.floor(duration / 60) : ``}h ${duration < 60 ? duration : duration % 60}m</td>
               </tr>
               <tr class="film-details__row">
                 <td class="film-details__term">Country</td>
