@@ -1,19 +1,52 @@
-export const createCardFilmLayout = ({name, posters, text, rating, premiere, duration, genre, countComments, watchlist, watched, favorite}) => `
-    <article class="film-card">
-      <h3 class="film-card__title">${name}</h3>
-      <p class="film-card__rating">${rating}</p>
-      <p class="film-card__info">
-        <span class="film-card__year">${premiere.getFullYear()}</span>
-        <span class="film-card__duration">${Math.floor(duration / 60) >= 1 ? Math.floor(duration / 60) : ``}h ${duration < 60 ? duration : duration % 60}m</span>
-        <span class="film-card__genre">${genre}</span>
-      </p>
-      <img src="./images/posters/${posters}" alt="" class="film-card__poster">
-      <p class="film-card__description">${text}</p>
-      <a class="film-card__comments">${countComments} comments</a>
-      <form class="film-card__controls">
-        <button class="film-card__controls-item button film-card__controls-item--add-to-watchlist ${watchlist ? `film-card__controls-item--active` : ``}">Add to watchlist</button>
-        <button class="film-card__controls-item button film-card__controls-item--mark-as-watched ${watched ? `film-card__controls-item--active` : ``}">Mark as watched</button>
-        <button class="film-card__controls-item button film-card__controls-item--favorite ${favorite ? `film-card__controls-item--active` : ``}">Mark as favorite</button>
-      </form>
-    </article>
-`;
+import {createElement} from "../utils";
+import {unrender} from "../utils";
+
+export default class Card {
+  constructor({name, posters, text, rating, premiere, duration, genre, countComments, watchlist, watched, favorite}) {
+    this._name = name;
+    this._posters = posters;
+    this._text = text;
+    this._rating = rating;
+    this._premiere = premiere;
+    this._duration = duration;
+    this._genre = genre;
+    this._countComments = countComments;
+    this._watchlist = watchlist;
+    this._watched = watched;
+    this._favorite = favorite;
+    this._element = null;
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate(), `firstElement`);
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    unrender(this._element);
+    this._element = null;
+  }
+
+  getTemplate() {
+    return `<article class="film-card">
+              <h3 class="film-card__title">${this._name}</h3>
+              <p class="film-card__rating">${this._rating}</p>
+              <p class="film-card__info">
+                <span class="film-card__year">${this._premiere.getFullYear()}</span>
+                <span class="film-card__duration">${Math.floor(this._duration / 60) >= 1 ? Math.floor(this._duration / 60) : ``}h ${this._duration < 60 ? this._duration : this._duration % 60}m</span>
+                <span class="film-card__genre">${this._genre}</span>
+              </p>
+              <img src="./images/posters/${this._posters}" alt="" class="film-card__poster">
+              <p class="film-card__description">${this._text}</p>
+              <a class="film-card__comments">${this._countComments} comments</a>
+              <form class="film-card__controls">
+                <button class="film-card__controls-item button film-card__controls-item--add-to-watchlist ${this._watchlist ? `film-card__controls-item--active` : ``}">Add to watchlist</button>
+                <button class="film-card__controls-item button film-card__controls-item--mark-as-watched ${this._watched ? `film-card__controls-item--active` : ``}">Mark as watched</button>
+                <button class="film-card__controls-item button film-card__controls-item--favorite ${this._favorite ? `film-card__controls-item--active` : ``}">Mark as favorite</button>
+              </form>
+            </article>`;
+  }
+}
