@@ -17,13 +17,13 @@ const getCartData = () => ({
     `Славные парни`
   ]),
   posters: new Set([
-    `./images/posters/made-for-each-other.png`,
-    `./images/posters/popeye-meets-sinbad.png`,
-    `./images/posters/sagebrush-trail.jpg`,
-    `./images/posters/santa-claus-conquers-the-martians.jpg`,
-    `./images/posters/the-dance-of-life.jpg`,
-    `./images/posters/the-great-flamarion.jpg`,
-    `./images/posters/the-man-with-the-golden-arm.jpg`,
+    `made-for-each-other.png`,
+    `popeye-meets-sinbad.png`,
+    `sagebrush-trail.jpg`,
+    `santa-claus-conquers-the-martians.jpg`,
+    `the-dance-of-life.jpg`,
+    `the-great-flamarion.jpg`,
+    `the-man-with-the-golden-arm.jpg`,
   ]),
   text: [
     `Lorem ipsum dolor sit amet, consectetur adipiscing elit.`,
@@ -52,7 +52,35 @@ const getCartData = () => ({
   countComments: Math.round(Math.random() * (10 - 1) + 1),
   watchlist: Boolean(Math.round(Math.random())),
   watched: Boolean(Math.round(Math.random())),
-  favorite: Boolean(Math.round(Math.random()))
+  favorite: Boolean(Math.round(Math.random())),
+  directors: new Set([
+    `Бондарчук Старший`,
+    `Стивен Спилберг`,
+    `Бондарчук Младший`,
+    `Кэмерон мужик`,
+    `Михалков старик`
+  ]),
+  writers: new Set([
+    `Донцова Даша`,
+    `Роулинг тетя`,
+    `Пехов писатель`,
+    `Андерсон сказочник`,
+    `Перумов Ник`
+  ]),
+  actors: new Set([
+    `Моника Белуччи`,
+    `Кира Найтли`,
+    `Натали Портман`,
+    `Брэд Питт`,
+    `Джони Депп`
+  ]),
+  country: new Set([
+    `USA`,
+    `Russia`,
+    `Belarus`,
+    `UK`,
+    `China`
+  ])
 });
 
 const getConfigAllCard = () => {
@@ -72,7 +100,11 @@ const getConfigAllCard = () => {
       countComments: config.countComments,
       watchlist: config.watchlist,
       watched: config.watched,
-      favorite: config.favorite
+      favorite: config.favorite,
+      director: [...config.directors][Math.floor(Math.random() * 5)],
+      writers: [...config.writers].sort(() => 0.5 - Math.random()).slice(0, Math.random() * (1 - 4) + 4).join(`, `),
+      actors: [...config.actors].sort(() => 0.5 - Math.random()).slice(0, Math.random() * (1 - 4) + 4).join(`, `),
+      country: [...config.country][Math.floor(Math.random() * 5)]
     });
   }
 
@@ -128,56 +160,4 @@ const getAllFiltersConfig = () => {
 
 const configFilters = getAllFiltersConfig();
 
-const getPopupConfig = () => {
-  const randomCardConfig = configAllCard[Math.floor(Math.random() * configAllCard.length)];
-  const {name, posters, text, rating, premiere, duration, genre, countComments, watchlist, watched, favorite} = randomCardConfig;
-
-  const randomPopupConfig = {
-    name,
-    posters,
-    text,
-    rating,
-    premiere: premiere.getDay() + ` ` + premiere.toLocaleString(`en`, {month: `long`}) + ` ` + premiere.getFullYear(),
-    runtime: duration,
-    genre,
-    countComments,
-    watchlist,
-    watched,
-    favorite,
-    original: name,
-    directors: [...new Set([
-      `Бондарчук Старший`,
-      `Стивен Спилберг`,
-      `Бондарчук Младший`,
-      `Кэмерон мужик`,
-      `Михалков старик`
-    ])][Math.floor(Math.random() * 5)],
-    writers: [...new Set([
-      `Донцова Даша`,
-      `Роулинг тетя`,
-      `Пехов писатель`,
-      `Андерсон сказочник`,
-      `Перумов Ник`
-    ])].sort(() => 0.5 - Math.random()).slice(0, Math.random() * (1 - 4) + 4).join(`, `),
-    actors: [...new Set([
-      `Моника Белуччи`,
-      `Кира Найтли`,
-      `Натали Портман`,
-      `Брэд Питт`,
-      `Джони Депп`
-    ])].sort(() => 0.5 - Math.random()).slice(0, Math.random() * (1 - 4) + 4).join(`, `),
-    country: [...new Set([
-      `USA`,
-      `Russia`,
-      `Belarus`,
-      `UK`,
-      `China`
-    ])][Math.floor(Math.random() * 5)]
-  };
-
-  return randomPopupConfig;
-};
-
-const configPopup = getPopupConfig();
-
-export {configAllCard, configFilters, configPopup};
+export {configAllCard, configFilters};
