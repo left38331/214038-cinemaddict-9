@@ -1,8 +1,8 @@
-import {createElement} from "../utils";
-import {unrender} from "../utils";
+import AbstractComponent from "./abstract-components";
 
-export default class Card {
+export default class Card extends AbstractComponent {
   constructor({name, posters, text, rating, premiere, duration, genre, countComments, watchlist, watched, favorite}) {
+    super();
     this._name = name;
     this._posters = posters;
     this._text = text;
@@ -14,20 +14,6 @@ export default class Card {
     this._watchlist = watchlist;
     this._watched = watched;
     this._favorite = favorite;
-    this._element = null;
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate(), `firstElement`);
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    unrender(this._element);
-    this._element = null;
   }
 
   getTemplate() {

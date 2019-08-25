@@ -1,24 +1,6 @@
-import {createElement} from "../utils";
-import {unrender} from "../utils";
+import AbstractComponent from "./abstract-components";
 
-export default class SortingContainer {
-  constructor() {
-    this._element = null;
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate(), `firstElement`);
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    unrender(this._element);
-    this._element = null;
-  }
-
+export default class SortingContainer extends AbstractComponent {
   getTemplate() {
     return `<ul class="sort">
               <li><a href="#" class="sort__button sort__button--active">Sort by default</a></li>
