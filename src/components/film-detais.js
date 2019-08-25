@@ -1,8 +1,8 @@
-import {createElement} from "../utils";
-import {unrender} from "../utils";
+import AbstractComponent from "./abstract-components";
 
-export default class CardPopup {
+export default class CardPopup extends AbstractComponent {
   constructor({name, posters, text, rating, premiere, duration, genre, countComments, watchlist, watched, favorite, director, writers, actors, country}) {
+    super();
     this._name = name;
     this._posters = posters;
     this._text = text;
@@ -18,20 +18,6 @@ export default class CardPopup {
     this._writers = writers;
     this._actors = actors;
     this._country = country;
-    this._element = null;
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate(), `firstElement`);
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    unrender(this._element);
-    this._element = null;
   }
 
   getTemplate() {
