@@ -1,4 +1,4 @@
-import {render, defineMostValuesCards} from "../utils";
+import {render, defineMostValuesCards, Sorting} from "../utils";
 import FilmsContainer from "../components/films-container";
 import FilmsList from "../components/films-list";
 import TopRatedContainer from "../components/top-rated-films";
@@ -7,6 +7,7 @@ import ButtonShowMore from "../components/button-show-more";
 import Card from "../components/film-card";
 import CardPopup from "../components/film-detais";
 import NoFilms from "../components/no-films";
+import SortingContainer from "../components/sortiing-container";
 import {configAllCard} from "../data";
 
 export default class PageController {
@@ -14,6 +15,7 @@ export default class PageController {
     this._container = container;
     this._allCards = cards.slice();
     this._firstPartCards = cards.splice(0, 5);
+    this._sort = new SortingContainer();
     this._filmsContainer = new FilmsContainer();
     this._filmsList = new FilmsList();
     this._noFilms = new NoFilms();
@@ -22,6 +24,7 @@ export default class PageController {
   }
 
   init() {
+    render(this._container, this._sort.getElement());
     render(this._container, this._filmsContainer.getElement());
 
     if (this._firstPartCards.length === 0) {
@@ -37,6 +40,8 @@ export default class PageController {
       if (this._allCards.length > 8) {
         this._renderShowMore(this._allCards);
       }
+
+      this._sort.getElement().addEventListener(`click`, (evt) => this._onSortLinkClick(evt));
     }
   }
 
@@ -87,5 +92,27 @@ export default class PageController {
     });
 
     render(this._filmsList.getElement(), buttonShowMore.getElement());
+  }
+
+  _onSortLinkClick(evt) {
+    evt.preventDefault();
+
+    if (evt.target.tagName !== `A`) {
+      return;
+    }
+
+    this._filmsList.getElement().querySelector(`.films-list__container`).innerHTML = ``;
+
+    switch (evt.target.dataset.sort) {
+      case Sorting.DATE:
+        this._firstPartCards.slice().sort((a, b) => b.premiere - a.premiere).forEach((film) => this._renderCards(film));
+        break;
+      case Sorting.RATING:
+        this._firstPartCards.slice().sort((a, b) => b.rating - a.rating).forEach((film) => this._renderCards(film));
+        break;
+      case Sorting.DEFAULT:
+        this._firstPartCards.forEach((film) => this._renderCards(film));
+        break;
+    }
   }
 }

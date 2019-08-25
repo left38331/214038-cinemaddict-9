@@ -1,11 +1,9 @@
-import {configAllCard} from "./data";
-import {configFilters} from "./data";
+import {configAllCard, configFilters} from "./data";
 import {render, Position, defineRank} from "./utils";
 import Search from "./components/search";
 import Profile from "./components/profile";
 import FilterContainer from "./components/filter-container";
 import Filter from "./components/filter";
-import SortingContainer from "./components/sortiing-container";
 import FooterStatistic from "./components/footer-statistic";
 import PageController from "./controller/films";
 
@@ -33,12 +31,6 @@ const renderFilters = (container, filter) => {
   render(container, oneFilter.getElement(), Position.AFTERBEGIN);
 };
 
-const renderSortingContainer = (container) => {
-  const sortingContainer = new SortingContainer();
-
-  render(container, sortingContainer.getElement());
-};
-
 const renderFooterStatistic = (container) => {
   const footerStatistic = new FooterStatistic(configFilters[0][`count`]);
 
@@ -53,7 +45,6 @@ const renderAllComponents = () => {
   renderSearch(header);
   renderProfile(header);
   renderFilterContainer(main);
-  renderSortingContainer(main);
   renderFooterStatistic(footer);
 
   const filtersContainer = main.querySelector(`.main-navigation`);
