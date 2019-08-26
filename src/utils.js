@@ -1,9 +1,14 @@
-import {configFilters} from "./data";
-import {configAllCard} from "./data";
+import {configFilters, configAllCard} from "./data";
 
 const Position = {
   AFTERBEGIN: `afterbegin`,
   BEFOREEND: `beforeend`
+};
+
+const Sorting = {
+  DEFAULT: `default`,
+  DATE: `date`,
+  RATING: `rating`
 };
 
 const createElement = (template) => {
@@ -79,4 +84,4 @@ const defineMostValuesCards = (value) => {
   return configAllCard.slice(arrayMost[0], arrayMost[0] + 1).concat(configAllCard.slice(arrayMost[1], arrayMost[1] + 1));
 };
 
-export {Position, createElement, render, unrender, defineRank, defineMostValuesCards};
+export {Position, Sorting, createElement, render, unrender, defineRank, defineMostValuesCards};
