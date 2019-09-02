@@ -2,7 +2,8 @@ import {configFilters, configAllCard} from "./data";
 
 const Position = {
   AFTERBEGIN: `afterbegin`,
-  BEFOREEND: `beforeend`
+  BEFOREEND: `beforeend`,
+  INSERTBEFORE: `insertBefore`
 };
 
 const Sorting = {
@@ -25,6 +26,9 @@ const render = (container, element, place = Position.BEFOREEND) => {
       break;
     case Position.BEFOREEND:
       container.append(element);
+      break;
+    case Position.INSERTBEFORE:
+      container.parentNode.insertBefore(element, container);
       break;
   }
 };
@@ -57,7 +61,12 @@ const defineMostValues = (config, type) => {
   const arrayValues = [];
   const arrayMostValue = [];
 
-  config.map((item, i) => supportArray.push({i, [type]: item[type].toString()}));
+  if (type === `rating`) {
+    config.map((item, i) => supportArray.push({i, [type]: item[type].toString()}));
+  } else {
+    config.map((item, i) => supportArray.push({i, [type]: item[type].length.toString()}));
+  }
+
   supportArray.map((item) => arrayValues.push(item[type]));
 
   let twoMostValueElements = arrayValues.sort().splice(-2, 2).sort();
@@ -78,8 +87,8 @@ const defineMostValues = (config, type) => {
   return arrayMostValue;
 };
 
-const defineMostValuesCards = (value) => {
-  const arrayMost = defineMostValues(configAllCard, value);
+const defineMostValuesCards = (value, config = configAllCard) => {
+  const arrayMost = defineMostValues(config, value);
 
   return configAllCard.slice(arrayMost[0], arrayMost[0] + 1).concat(configAllCard.slice(arrayMost[1], arrayMost[1] + 1));
 };
