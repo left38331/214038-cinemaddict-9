@@ -37,7 +37,7 @@ const getCartData = () => ({
     `Aliquam erat volutpat.`,
     `Nunc fermentum tortor ac porta dapibus. In rutrum ac purus sit amet tempus.`
   ],
-  rating: (Math.random() * (10 - 1) + 1).toFixed(1),
+  rating: (Math.random() * (9 - 1) + 1).toFixed(1),
   premiere: new Date(new Date(1925, 0, 1).getTime() + Math.random() * (new Date().getTime() - new Date(1925, 0, 1).getTime())),
   duration: Math.round(Math.random() * (240 - 90) + 90),
   genre: new Set([
@@ -49,7 +49,6 @@ const getCartData = () => ({
     `Musical`,
     `Mystery`
   ]),
-  countComments: Math.round(Math.random() * (10 - 1) + 1),
   watchlist: Boolean(Math.round(Math.random())),
   watched: Boolean(Math.round(Math.random())),
   favorite: Boolean(Math.round(Math.random())),
@@ -83,6 +82,43 @@ const getCartData = () => ({
   ])
 });
 
+const comments = () => ({
+  text: [
+    `Lorem ipsum dolor sit amet, consectetur adipiscing elit.`,
+    `Cras aliquet varius magna, non porta ligula feugiat eget.`,
+    `Fusce tristique felis at fermentum pharetra.`,
+  ],
+  emotion: new Set([
+    `smile.png`,
+    `sleeping.png`,
+    `puke.png`,
+    `angry.png`
+  ]),
+  author: new Set([
+    `Бондарчук Старший`,
+    `Стивен Спилберг`,
+    `Бондарчук Младший`,
+    `Кэмерон мужик`,
+    `Михалков старик`
+  ])
+});
+
+const getRandomComments = (config) => {
+  const countComments = Math.floor(Math.random() * 5);
+  const commentsConfig = [];
+
+  for (let i = 0; i <= countComments; i++) {
+    commentsConfig.push({
+      text: config.text[Math.floor(Math.random() * 3)],
+      emotion: [...config.emotion][Math.floor(Math.random() * 4)],
+      author: [...config.author][Math.floor(Math.random() * 5)],
+      date: new Date(new Date(1925, 0, 1).getTime() + Math.random() * (new Date().getTime() - new Date(1925, 0, 1).getTime()))
+    });
+  }
+
+  return commentsConfig;
+};
+
 const getConfigAllCard = () => {
   const arrayConfig = [];
 
@@ -97,7 +133,7 @@ const getConfigAllCard = () => {
       premiere: config.premiere,
       duration: config.duration,
       genre: [...config.genre][Math.floor(Math.random() * config.genre.size)],
-      countComments: config.countComments,
+      comments: getRandomComments(comments()),
       watchlist: config.watchlist,
       watched: config.watched,
       favorite: config.favorite,

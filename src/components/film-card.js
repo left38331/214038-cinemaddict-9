@@ -1,7 +1,7 @@
 import AbstractComponent from "./abstract-components";
 
 export default class Card extends AbstractComponent {
-  constructor({name, posters, text, rating, premiere, duration, genre, countComments, watchlist, watched, favorite}) {
+  constructor({name, posters, text, rating, premiere, duration, genre, comments, watchlist, watched, favorite}) {
     super();
     this._name = name;
     this._posters = posters;
@@ -10,7 +10,7 @@ export default class Card extends AbstractComponent {
     this._premiere = premiere;
     this._duration = duration;
     this._genre = genre;
-    this._countComments = countComments;
+    this._comments = comments;
     this._watchlist = watchlist;
     this._watched = watched;
     this._favorite = favorite;
@@ -27,7 +27,7 @@ export default class Card extends AbstractComponent {
               </p>
               <img src="./images/posters/${this._posters}" alt="" class="film-card__poster">
               <p class="film-card__description">${this._text}</p>
-              <a class="film-card__comments">${this._countComments} comments</a>
+              <a class="film-card__comments">${this._comments.length} comments</a>
               <form class="film-card__controls">
                 <button class="film-card__controls-item button film-card__controls-item--add-to-watchlist ${this._watchlist ? `film-card__controls-item--active` : ``}">Add to watchlist</button>
                 <button class="film-card__controls-item button film-card__controls-item--mark-as-watched ${this._watched ? `film-card__controls-item--active` : ``}">Mark as watched</button>
