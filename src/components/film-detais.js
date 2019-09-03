@@ -1,4 +1,5 @@
 import AbstractComponent from "./abstract-components";
+import moment from "moment";
 
 export default class CardPopup extends AbstractComponent {
   constructor({name, posters, text, rating, premiere, duration, genre, comments, watchlist, watched, favorite, director, writers, actors, country}) {
@@ -61,7 +62,7 @@ export default class CardPopup extends AbstractComponent {
                         </tr>
                         <tr class="film-details__row">
                           <td class="film-details__term">Release Date</td>
-                          <td class="film-details__cell">${this._premiere.getDay() + ` ` + this._premiere.toLocaleString(`en`, {month: `long`}) + ` ` + this._premiere.getFullYear()}</td>
+                          <td class="film-details__cell">${moment(this._premiere).format(`DD MMMM YYYY`)}</td>
                         </tr>
                         <tr class="film-details__row">
                           <td class="film-details__term">Runtime</td>
@@ -160,7 +161,7 @@ export default class CardPopup extends AbstractComponent {
                           <p class="film-details__comment-text">${this._comments[i].text}</p>
                           <p class="film-details__comment-info">
                             <span class="film-details__comment-author">${this._comments[i].author}</span>
-                            <span class="film-details__comment-day">${this._comments[i].date}</span>
+                            <span class="film-details__comment-day">${moment(this._comments[i].date).format(`YY/MM/DD HH: MM`)}</span>
                             <button class="film-details__comment-delete">Delete</button>
                           </p>
                         </div>
