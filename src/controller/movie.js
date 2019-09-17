@@ -54,7 +54,8 @@ export default class MovieController {
       this._onDataChange(entry, this._data);
     }));
 
-    allAddButtons.forEach((button) => button.addEventListener(`click`, () => {
+    allAddButtons.forEach((button) => button.addEventListener(`click`, (e) => {
+      e.preventDefault();
       const buttonIdentifier = button.textContent.split(/\W+/g)[2];
 
       button.classList.toggle(`film-card__controls-item--active`);

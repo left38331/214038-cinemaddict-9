@@ -1,60 +1,42 @@
-import {configAllCard, configFilters} from "./data";
-import {render, Position, defineRank} from "./utils";
+import {configAllCard} from "./data";
+import {render, defineRank, getAllFiltersConfig} from "./utils";
 import Search from "./components/search";
 import Profile from "./components/profile";
-import FilterContainer from "./components/filter-container";
-import Filter from "./components/filter";
 import FooterStatistic from "./components/footer-statistic";
 import PageController from "./controller/films";
+import SearchController from "./controller/search-controller";
+import Statistics from "./components/statistics";
 
-const renderSearch = (container) => {
-  const search = new Search();
-
-  render(container, search.getElement());
-};
-
-const renderProfile = (container) => {
-  const profile = new Profile(defineRank());
-
-  render(container, profile.getElement());
-};
-
-const renderFilterContainer = (container) => {
-  const filterContainer = new FilterContainer();
-
-  render(container, filterContainer.getElement());
-};
-
-const renderFilters = (container, filter) => {
-  const oneFilter = new Filter(filter);
-
-  render(container, oneFilter.getElement(), Position.AFTERBEGIN);
-};
-
-const renderFooterStatistic = (container) => {
-  const footerStatistic = new FooterStatistic(configFilters[0][`count`]);
-
-  render(container, footerStatistic.getElement());
-};
-
-const renderAllComponents = () => {
-  const header = document.querySelector(`.header`);
-  const main = document.querySelector(`.main`);
-  const footer = document.querySelector(`.footer`);
-
-  renderSearch(header);
-  renderProfile(header);
-  renderFilterContainer(main);
-  renderFooterStatistic(footer);
-
-  const filtersContainer = main.querySelector(`.main-navigation`);
-
-  configFilters.reverse().forEach((filter) => renderFilters(filtersContainer, filter));
-};
-
-renderAllComponents();
-
+const header = document.querySelector(`.header`);
 const main = document.querySelector(`.main`);
-const pageController = new PageController(main, configAllCard);
+const footer = document.querySelector(`.footer`);
 
-pageController.init();
+const search = new Search();
+const profile = new Profile(defineRank());
+const statistics = new Statistics();
+const footerStatistic = new FooterStatistic(getAllFiltersConfig(configAllCard)[0][`count`]);
+
+render(header, search.getElement());
+render(header, profile.getElement());
+render(main, statistics.getElement());
+render(footer, footerStatistic.getElement());
+
+const pageController = new PageController(main, configAllCard);
+pageController.show(configAllCard);
+
+const searchController = new SearchController(main, search);
+searchController.show(configAllCard);
+
+const inputSearch = search.getElement().querySelector(`input`);
+
+inputSearch.addEventListener(`keyup`, () => {
+  if (inputSearch.value.length === 0) {
+    searchController.hideResult();
+    pageController.show(configAllCard);
+  }
+});
+
+search.getElement().querySelector(`.search__reset`).addEventListener(`click`, () => {
+  searchController.hideResult();
+  pageController.show(configAllCard);
+});

@@ -1,4 +1,4 @@
-import {configFilters, configAllCard} from "./data";
+import {configAllCard} from "./data";
 
 const Position = {
   AFTERBEGIN: `afterbegin`,
@@ -40,7 +40,7 @@ const unrender = (element) => {
 };
 
 const defineRank = () => {
-  const count = configFilters[2].count;
+  const count = getAllFiltersConfig(configAllCard)[2].count;
   let rank;
 
   if (count === 0) {
@@ -93,4 +93,49 @@ const defineMostValuesCards = (value, config = configAllCard) => {
   return configAllCard.slice(arrayMost[0], arrayMost[0] + 1).concat(configAllCard.slice(arrayMost[1], arrayMost[1] + 1));
 };
 
-export {Position, Sorting, createElement, render, unrender, defineRank, defineMostValuesCards};
+const getCountFilmsOptions = (config) => {
+  const countAllFilters = new Set();
+  let countWathlist = 0;
+  let countWatced = 0;
+  let countFavorite = 0;
+
+  config.forEach(({watchlist, watched, favorite}) => {
+    if (watchlist) {
+      countWathlist++;
+    }
+
+    if (watched) {
+      countWatced++;
+    }
+
+    if (favorite) {
+      countFavorite++;
+    }
+  });
+
+  countAllFilters.all = config.length;
+  countAllFilters.watchlist = countWathlist;
+  countAllFilters.history = countWatced;
+  countAllFilters.favorites = countFavorite;
+
+  return countAllFilters;
+};
+
+const getAllFiltersConfig = (config) => {
+  const arrayFilters = [];
+  const nameFilters = new Set([
+    `all`,
+    `watchlist`,
+    `history`,
+    `favorites`
+  ]);
+  const countAllFilters = getCountFilmsOptions(config);
+
+  for (let name of nameFilters) {
+    arrayFilters.push({name, count: countAllFilters[name]});
+  }
+
+  return arrayFilters;
+};
+
+export {Position, Sorting, createElement, render, unrender, defineRank, defineMostValuesCards, getAllFiltersConfig};
