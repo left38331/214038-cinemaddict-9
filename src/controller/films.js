@@ -10,6 +10,7 @@ import Filter from "../components/filter";
 import NavigationContainer from "../components/filter-container";
 
 import CardListController from "./cardListController";
+import ChartJs from "./chart";
 
 export default class PageController {
   constructor(container) {
@@ -175,10 +176,13 @@ export default class PageController {
     const statistic = document.querySelector(`.statistic`);
     const sort = document.querySelector(`.sort`);
     const films = document.querySelector(`.films`);
+    const selector = document.querySelector(`.statistic__chart`);
+    const chart = new ChartJs(selector);
 
     statistic.classList.remove(`visually-hidden`);
     sort.classList.add(`visually-hidden`);
     films.classList.add(`visually-hidden`);
+    chart.showChart();
   }
 
   _hideStatistics() {
