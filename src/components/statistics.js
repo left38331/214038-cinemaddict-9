@@ -1,6 +1,12 @@
 import AbstractComponent from "./abstract-components";
 
 export default class Statistics extends AbstractComponent {
+  constructor(filmsWathced, duration) {
+    super();
+    this._filmsWathced = filmsWathced;
+    this._duration = duration;
+  }
+
   getTemplate() {
     return `<section class="statistic visually-hidden">
               <p class="statistic__rank">
@@ -31,11 +37,11 @@ export default class Statistics extends AbstractComponent {
               <ul class="statistic__text-list">
                 <li class="statistic__text-item">
                   <h4 class="statistic__item-title">You watched</h4>
-                  <p class="statistic__item-text">22 <span class="statistic__item-description">movies</span></p>
+                  <p class="statistic__item-text">${this._filmsWathced} <span class="statistic__item-description">movies</span></p>
                 </li>
                 <li class="statistic__text-item">
                   <h4 class="statistic__item-title">Total duration</h4>
-                  <p class="statistic__item-text">130 <span class="statistic__item-description">h</span> 22 <span class="statistic__item-description">m</span></p>
+                  <p class="statistic__item-text">${Math.floor(this._duration / 60)} <span class="statistic__item-description">h</span> ${this._duration - Math.floor(this._duration / 60) * 60} <span class="statistic__item-description">m</span></p>
                 </li>
                 <li class="statistic__text-item">
                   <h4 class="statistic__item-title">Top genre</h4>
