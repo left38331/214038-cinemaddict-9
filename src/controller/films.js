@@ -1,4 +1,4 @@
-import {render, defineMostValuesCards, Sorting, getAllFiltersConfig, Position} from "../utils";
+import {render, Sorting, getAllFiltersConfig, Position} from "../utils";
 import FilmsContainer from "../components/films-container";
 import FilmsList from "../components/films-list";
 import TopRatedContainer from "../components/top-rated-films";
@@ -86,12 +86,6 @@ export default class PageController {
 
     render(container, filter.getElement(), Position.AFTERBEGIN);
   }
-
-  // _onDataChange(newData, oldData) {
-  //   this._allFilmsCard[this._allFilmsCard.findIndex((it) => it === oldData)] = newData;
-  //   this._constCardsConfig[this._allFilmsCard.findIndex((it) => it === oldData)] = newData;
-  //   this._renderFilmsContainer(this._allFilmsCard.slice(), this._countShownCard);
-  // }
 
   _renderShowMore(films) {
     const buttonShowMore = new ButtonShowMore();

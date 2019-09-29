@@ -25,7 +25,6 @@ export default class ModelMovie {
   }
 
   static parseMovie(data) {
-    console.log(data);
     return new ModelMovie(data);
   }
 

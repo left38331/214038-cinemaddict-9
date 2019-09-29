@@ -4,10 +4,10 @@ import Search from "./components/search";
 import Profile from "./components/profile";
 import FooterStatistic from "./components/footer-statistic";
 import PageController from "./controller/films";
-import SearchController from "./controller/search-controller";
+// import SearchController from "./controller/search-controller";
 import StatisticsController from "./controller/statistics-controller";
 import {API} from "./server";
-import MovieController from "./controller/movie";
+// import MovieController from "./controller/movie";
 
 const header = document.querySelector(`.header`);
 const main = document.querySelector(`.main`);

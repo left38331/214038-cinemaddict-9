@@ -1,7 +1,7 @@
 import Card from "../components/film-card";
 import CardPopup from "../components/film-detais";
-import UserRating from "../components/user-rating";
-import {Position, render, AUTHORIZATION, END_POINT} from "../utils";
+// import UserRating from "../components/user-rating";
+import {render, AUTHORIZATION, END_POINT} from "../utils";
 import CommentsList from "../components/comments-list";
 import {API} from "../server";
 
