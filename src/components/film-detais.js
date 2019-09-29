@@ -2,7 +2,7 @@ import AbstractComponent from "./abstract-components";
 import moment from "moment";
 
 export default class CardPopup extends AbstractComponent {
-  constructor({name, posters, text, rating, premiere, duration, genre, comments, watchlist, watched, favorite, director, writers, actors, country}) {
+  constructor({name, posters, text, rating, premiere, duration, genre, comments, watchlist, watched, favorite, director, writers, actors, country, alternatveTitle}) {
     super();
     this._name = name;
     this._posters = posters;
@@ -19,6 +19,7 @@ export default class CardPopup extends AbstractComponent {
     this._writers = writers;
     this._actors = actors;
     this._country = country;
+    this._alternatveTitle = alternatveTitle;
   }
 
   getTemplate() {
@@ -30,7 +31,7 @@ export default class CardPopup extends AbstractComponent {
                   </div>
                   <div class="film-details__info-wrap">
                     <div class="film-details__poster">
-                      <img class="film-details__poster-img" src="./images/posters/${this._posters}" alt="">
+                      <img class="film-details__poster-img" src="./${this._posters}" alt="">
             
                       <p class="film-details__age">18+</p>
                     </div>
@@ -39,7 +40,7 @@ export default class CardPopup extends AbstractComponent {
                       <div class="film-details__info-head">
                         <div class="film-details__title-wrap">
                           <h3 class="film-details__title">${this._name}</h3>
-                          <p class="film-details__title-original">Original: ${this._name}</p>
+                          <p class="film-details__title-original">Original: ${this._alternatveTitle}</p>
                         </div>
             
                         <div class="film-details__rating">
@@ -72,11 +73,13 @@ export default class CardPopup extends AbstractComponent {
                           <td class="film-details__term">Country</td>
                           <td class="film-details__cell">${this._country}</td>
                         </tr>
-                        <tr class="film-details__row">
-                          <td class="film-details__term">Genres</td>
-                          <td class="film-details__cell">
-                            <span class="film-details__genre">${this._genre}</span>
-                        </tr>
+                        ${this._genre.length > 0 ? `<tr class="film-details__row">
+                             <td class="film-details__term">${this._genre.length === 1 ? `Genre` : `Genres`}</td>
+                             <td class="film-details__cell">
+                               <span class="film-details__genre">${this._genre}</span>
+                             </td>
+                           </tr>` : ``}
+                        
                       </table>
             
                       <p class="film-details__film-description">
@@ -105,7 +108,7 @@ export default class CardPopup extends AbstractComponent {
                               
                                       <div class="film-details__user-score">
                                         <div class="film-details__user-rating-poster">
-                                          <img src="./images/posters/${this._posters}" alt="film-poster" class="film-details__user-rating-img">
+                                          <img src="./${this._posters}" alt="film-poster" class="film-details__user-rating-img">
                                         </div>
                               
                                         <section class="film-details__user-rating-inner">
@@ -148,56 +151,7 @@ export default class CardPopup extends AbstractComponent {
                                   </div>` : ``}
             
                 <div class="form-details__bottom-container">
-                  <section class="film-details__comments-wrap">
-                    <h3 class="film-details__comments-title">Comments <span class="film-details__comments-count">${this._comments.length}</span></h3>
-           
-                    <ul class="film-details__comments-list">
-                    ${Object.entries(this._comments).map((comment, i) => `
-                      <li class="film-details__comment">
-                        <span class="film-details__comment-emoji">
-                          <img src="./images/emoji/${this._comments[i].emotion}" width="55" height="55" alt="emoji">
-                        </span>
-                        <div>
-                          <p class="film-details__comment-text">${this._comments[i].text}</p>
-                          <p class="film-details__comment-info">
-                            <span class="film-details__comment-author">${this._comments[i].author}</span>
-                            <span class="film-details__comment-day">${moment(this._comments[i].date).format(`YY/MM/DD HH: MM`)}</span>
-                            <button class="film-details__comment-delete">Delete</button>
-                          </p>
-                        </div>
-                      </li>`).join(``)}
-                    </ul>
-            
-                    <div class="film-details__new-comment">
-                      <div for="add-emoji" class="film-details__add-emoji-label"></div>
-            
-                      <label class="film-details__comment-label">
-                        <textarea class="film-details__comment-input" placeholder="Select reaction below and write comment here" name="comment"></textarea>
-                      </label>
-            
-                      <div class="film-details__emoji-list">
-                        <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-smile" value="smile">
-                        <label class="film-details__emoji-label" for="emoji-smile">
-                          <img src="./images/emoji/smile.png" width="30" height="30" alt="emoji">
-                        </label>
-            
-                        <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-sleeping" value="sleeping">
-                        <label class="film-details__emoji-label" for="emoji-sleeping">
-                          <img src="./images/emoji/sleeping.png" width="30" height="30" alt="emoji">
-                        </label>
-            
-                        <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-puke" value="puke">
-                        <label class="film-details__emoji-label" for="emoji-puke">
-                          <img src="./images/emoji/puke.png" width="30" height="30" alt="emoji">
-                        </label>
-            
-                        <input class="film-details__emoji-item visually-hidden" name="comment-emoji" type="radio" id="emoji-angry" value="angry">
-                        <label class="film-details__emoji-label" for="emoji-angry">
-                          <img src="./images/emoji/angry.png" width="30" height="30" alt="emoji">
-                        </label>
-                      </div>
-                    </div>
-                  </section>
+                  
                 </div>
               </form>
             </section>`;

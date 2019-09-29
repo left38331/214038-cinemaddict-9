@@ -24,11 +24,11 @@ export default class Card extends AbstractComponent {
               <p class="film-card__info">
                 <span class="film-card__year">${moment(this._premiere).format(`YYYY`)}</span>
                 <span class="film-card__duration">${Math.floor(this._duration / 60) >= 1 ? Math.floor(this._duration / 60) : ``}h ${this._duration < 60 ? this._duration : this._duration % 60}m</span>
-                <span class="film-card__genre">${this._genre}</span>
+                <span class="film-card__genre">${this._genre.length > 0 ? this._genre[0] : ``}</span>
               </p>
-              <img src="./images/posters/${this._posters}" alt="" class="film-card__poster">
+              <img src="./${this._posters}" alt="" class="film-card__poster">
               <p class="film-card__description">${this._text}</p>
-              <a class="film-card__comments">${this._comments.length} comments</a>
+              <a class="film-card__comments">${this._comments} comments</a>
               <form class="film-card__controls">
                 <button class="film-card__controls-item button film-card__controls-item--add-to-watchlist ${this._watchlist ? `film-card__controls-item--active` : ``}">Add to watchlist</button>
                 <button class="film-card__controls-item button film-card__controls-item--mark-as-watched ${this._watched ? `film-card__controls-item--active` : ``}">Mark as watched</button>
