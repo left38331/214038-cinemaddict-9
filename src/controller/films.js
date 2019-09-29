@@ -13,7 +13,7 @@ import CardListController from "./cardListController";
 import ChartJs from "./chart";
 
 export default class PageController {
-  constructor(container) {
+  constructor(container, onDataChange) {
     this._container = container;
     this._sort = new SortingContainer();
     this._filmsContainer = new FilmsContainer();
@@ -23,9 +23,11 @@ export default class PageController {
     this._topCommentedContainer = new TopCommentedContainer();
     this._navigationContainer = new NavigationContainer();
 
-    this._cardListController = new CardListController(this._filmsList.getElement(), this._onDataChange.bind(this));
-    this._cardRatingListController = new CardListController(this._topRatedContainer.getElement(), this._onDataChange.bind(this));
-    this._cardCommentedListController = new CardListController(this._topCommentedContainer.getElement(), this._onDataChange.bind(this));
+    this._onDataChange = onDataChange;
+
+    this._cardListController = new CardListController(this._filmsList.getElement(), this._onDataChange);
+    this._cardRatingListController = new CardListController(this._topRatedContainer.getElement(), this._onDataChange);
+    this._cardCommentedListController = new CardListController(this._topCommentedContainer.getElement(), this._onDataChange);
 
     this._CARDS_IN_ROW = 5;
     this._countShownCard = 5;
@@ -35,7 +37,7 @@ export default class PageController {
     this._currentlyCardsConfig = [];
 
     this._filterStatus = `all`;
-    this._onDataChange = this._onDataChange.bind(this);
+
     this._init();
   }
 
@@ -63,9 +65,9 @@ export default class PageController {
     this._topCommentedContainer.getElement().querySelector(`.films-list__container`).innerHTML = ``;
     getAllFiltersConfig(this._constCardsConfig).reverse().forEach((filter) => this._renderFilters(this._navigationContainer.getElement(), filter));
 
-    this._cardRatingListController.setCards(defineMostValuesCards(`rating`, this._constCardsConfig));
-    this._cardCommentedListController.setCards(defineMostValuesCards(`comments`, this._constCardsConfig));
-    this._cardListController.setCards(films.slice(0, count));
+    // this._cardRatingListController.setCards(defineMostValuesCards(`rating`, this._constCardsConfig));
+    // this._cardCommentedListController.setCards(defineMostValuesCards(`comments`, this._constCardsConfig));
+    this._cardListController.setCards(films.slice(0, count), this._onDataChange);
 
     if (films.length > count) {
       this._renderShowMore(films);
@@ -85,11 +87,11 @@ export default class PageController {
     render(container, filter.getElement(), Position.AFTERBEGIN);
   }
 
-  _onDataChange(newData, oldData) {
-    this._allFilmsCard[this._allFilmsCard.findIndex((it) => it === oldData)] = newData;
-    this._constCardsConfig[this._allFilmsCard.findIndex((it) => it === oldData)] = newData;
-    this._renderFilmsContainer(this._allFilmsCard.slice(), this._countShownCard);
-  }
+  // _onDataChange(newData, oldData) {
+  //   this._allFilmsCard[this._allFilmsCard.findIndex((it) => it === oldData)] = newData;
+  //   this._constCardsConfig[this._allFilmsCard.findIndex((it) => it === oldData)] = newData;
+  //   this._renderFilmsContainer(this._allFilmsCard.slice(), this._countShownCard);
+  // }
 
   _renderShowMore(films) {
     const buttonShowMore = new ButtonShowMore();

@@ -1,5 +1,8 @@
 import {configAllCard} from "./data";
 
+const AUTHORIZATION = `Basic dXNlckBwYXNzd29yZAo=${Math.random()}`;
+const END_POINT = `https://htmlacademy-es-9.appspot.com/cinemaddict`;
+
 const Position = {
   AFTERBEGIN: `afterbegin`,
   BEFOREEND: `beforeend`,
@@ -64,7 +67,7 @@ const defineMostValues = (config, type) => {
   if (type === `rating`) {
     config.map((item, i) => supportArray.push({i, [type]: item[type].toString()}));
   } else {
-    config.map((item, i) => supportArray.push({i, [type]: item[type].length.toString()}));
+    config.map((item, i) => supportArray.push({i, [type]: item[type].length}));
   }
 
   supportArray.map((item) => arrayValues.push(item[type]));
@@ -138,4 +141,4 @@ const getAllFiltersConfig = (config) => {
   return arrayFilters;
 };
 
-export {Position, Sorting, createElement, render, unrender, defineRank, defineMostValuesCards, getAllFiltersConfig};
+export {Position, Sorting, createElement, render, unrender, defineRank, defineMostValuesCards, getAllFiltersConfig, AUTHORIZATION, END_POINT};
